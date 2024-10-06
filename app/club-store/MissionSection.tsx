@@ -13,6 +13,7 @@ import { Button, usePortableDialog } from "@wwe-portal/ui/components";
 import { MilestonePeriodData } from "@wwe-portal/ui/features/club-store/milestone/milestone-period";
 // import { useEnabledFlags } from "views/components/FeatureFlag";
 import { OfferItem, OfferReviewDialog } from "@wwe-portal/ui/features";
+import React from "react";
 
 interface SortableMission {
   isClaimedValue: number;

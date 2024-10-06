@@ -17,7 +17,11 @@ import { MissionSection } from "./MissionSection";
 // import { useGetClubCoins } from "store/global/useCurrency";
 // import { useSubscriptionQuery } from "../Subscription/lib/query";
 // import { useSubscriptionMutation } from "../Subscription/lib/mutation";
-import { Dialog, PageContent } from "@wwe-portal/ui/components";
+import {
+  Dialog,
+  PageContent,
+  PortableDialogProvider,
+} from "@wwe-portal/ui/components";
 // import { globalSel } from "store/global";
 // import { useSelector } from "react-redux";
 import { ExclusiveItemSectionRevamp } from "./ExclusiveItemSectionRevamp";
@@ -76,22 +80,23 @@ export default function Page() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <PageContent>
-        <ClubStoreLayout
-          pageTitle="Club Store"
-          content={
-            <>
-              <HelloWorldCard
-                onClick={goToSubscription}
-                description={getDescription()}
-                buttonContent={getButtonContent()}
-              />
-              {missionEnabled && (
-                <div ref={refs.mission}>
-                  <MissionSection />
-                </div>
-              )}
-              {/* {fuseUpEnabled && (
+      <PortableDialogProvider>
+        <PageContent>
+          <ClubStoreLayout
+            pageTitle="Club Store"
+            content={
+              <>
+                <HelloWorldCard
+                  onClick={goToSubscription}
+                  description={getDescription()}
+                  buttonContent={getButtonContent()}
+                />
+                {missionEnabled && (
+                  <div ref={refs.mission}>
+                    <MissionSection />
+                  </div>
+                )}
+                {/* {fuseUpEnabled && (
               <div ref={refs.fuseUp}>
                 <FuseUpSection subscribeMutation={mutation} />
               </div>
@@ -101,31 +106,31 @@ export default function Page() {
                 <RecruitmentSection subscribeMutation={mutation} />
               </div>
             )} */}
-              {itemEnabled && (
-                <div ref={refs.items}>
-                  <ExclusiveItemSectionRevamp />
+                {itemEnabled && (
+                  <div ref={refs.items}>
+                    <ExclusiveItemSectionRevamp />
+                  </div>
+                )}
+              </>
+            }
+            clubCoin={
+              currentUserClubCoin != null && (
+                <div>
+                  <ClubCoinAmount
+                    clubCoin={currentUserClubCoin}
+                    // onClickAdd={goAddClubCoin}
+                    onClickAdd={() => {}}
+                  />
                 </div>
-              )}
-            </>
-          }
-          clubCoin={
-            currentUserClubCoin != null && (
-              <div>
-                <ClubCoinAmount
-                  clubCoin={currentUserClubCoin}
-                  // onClickAdd={goAddClubCoin}
-                  onClickAdd={() => {}}
-                />
-              </div>
-            )
-          }
-          navigation={
-            <div>navigation</div>
-            // <ClubStoreNavigation ref={stickyElmRef} {...navigation} />
-          }
-        />
+              )
+            }
+            navigation={
+              <div>navigation</div>
+              // <ClubStoreNavigation ref={stickyElmRef} {...navigation} />
+            }
+          />
 
-        {/* {upgradeDialogState ? (
+          {/* {upgradeDialogState ? (
         <Dialog
           onOpenChange={(value) => {
             if (!value) {
@@ -143,7 +148,8 @@ export default function Page() {
           />
         </Dialog>
       ) : null} */}
-      </PageContent>
+        </PageContent>
+      </PortableDialogProvider>
     </QueryClientProvider>
   );
 }
