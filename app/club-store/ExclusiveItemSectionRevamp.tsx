@@ -30,7 +30,7 @@ const selectOfferData = ({ offerData }: ExclusiveItemResponse) => offerData;
 export const ExclusiveItemSectionRevamp = () => {
   // Redux selector hooks
   const { isAuthenticated } = useIsAuthenticated();
-
+  console.log({ isAuthenticated });
   // const { purchaseItemsByClubCoins, isLoading } = usePurchaseByClubCoins({
   //   onError: () => {
   //     closeExclusiveDialog();
@@ -168,6 +168,7 @@ export const ExclusiveItemSectionRevamp = () => {
     },
     [currentPlan, exclusiveItemData]
   );
+  console.log({ exclusiveItemData });
 
   // useEffectOnceWhen(() => {
   //   sendExclusiveItemsRevampLoadedEvent(exclusiveItemData.itemsByTier);

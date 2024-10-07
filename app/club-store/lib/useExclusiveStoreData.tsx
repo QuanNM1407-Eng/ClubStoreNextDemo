@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 // import { useSubscriptionQuery } from "views/pages/Subscription/lib/query";
 // import { useExclusiveItems } from "./query";
 import { OfferData } from "@wwe-portal/data/offers";
-// import { NotEnoughClubCoinDialog } from "../dialogs/NotEnoughClubCoinDialog";
+import { NotEnoughClubCoinDialog } from "../modals/NotEnoughClubCoinDialog";
 import { ReferSubscriptionDialog } from "../modals/ReferSubscriptionDialog";
 import { isBetterTier } from "../types/type.subscription";
 import { subscriptionMap } from "./mapper.offer";
@@ -36,10 +36,9 @@ export const useExclusiveStoreData = ({
   const premiumOfferEnabled = true,
     prestigeOfferEnabled = true,
     superVIPEnabled = true;
-  // const isAuthenticated = useSelector(globalSel.isAuthSelector);
   const { isAuthenticated } = useIsAuthenticated();
   // const { amount: currentUserClubCoin } = useGetClubCoins();
-  const currentUserClubCoin = 1000;
+  const currentUserClubCoin = 0;
   const { currentPlan } = useSubscriptionQuery();
   const { data: exclusiveItemResponse } = useExclusiveItems();
   // const exclusiveItemResponse = {};
@@ -50,7 +49,7 @@ export const useExclusiveStoreData = ({
   //   return await data.json();
   // };
   // const exclusiveItemResponse = (async() => return await getExclusiveItems());
-  console.log({ exclusiveItemResponse });
+
   const getValidationPurchase = (data: {
     tier: SubscriptionTier | undefined;
     offerData: OfferData;
@@ -114,9 +113,8 @@ export const useExclusiveStoreData = ({
       (item) => item.offerData.OffersID === data.offerData.OffersID
     )?.offerData;
 
-    console.log({ offerData });
     if (offerData == null) return;
-    console.log({ offerData });
+
     purchaseItemsByClubCoins({
       offerData,
     });

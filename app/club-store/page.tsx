@@ -56,7 +56,6 @@ export default function Page() {
   const itemEnabled = true;
   const { isAuthenticated } = useIsAuthenticated();
 
-  console.log({ isAuthenticated });
   const getDescription = () => {
     if (!isAuthenticated || currentPlan == null) {
       return "subscription.introduction";

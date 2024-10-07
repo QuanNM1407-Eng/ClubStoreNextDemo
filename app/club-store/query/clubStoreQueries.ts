@@ -113,7 +113,7 @@ export const useMissionStatus = () => {
       refetchInterval: reset_interval,
     }
   );
-  console.log({ missionStatusesResponse });
+
   const data: Record<string, MissionStatusResponse> | undefined =
     missionStatusesResponse?.data?.reduce(
       (list, status: MissionStatusResponse) => ({
