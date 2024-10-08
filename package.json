@@ -14,6 +14,7 @@
     "@wwe-portal/style": "0.0.0-dev-20241003080916",
     "@wwe-portal/ui": "0.0.0-dev-20241003080916",
     "@wwe-portal/widget": "0.0.0-dev-20241003080916",
+    "axios": "^1.7.7",
     "next": "14.2.14",
     "next-images": "^1.8.5",
     "next-plugin-svgr": "^1.1.10",

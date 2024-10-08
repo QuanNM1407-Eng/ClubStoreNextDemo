@@ -14,9 +14,10 @@ import { isBetterTier } from "../types/type.subscription";
 import { subscriptionMap } from "./mapper.offer";
 import { showDialog } from "@wwe-portal/ui/components";
 import { LoginDialog } from "../modals/LoginDialog";
-import useExclusiveItems from "../query/useExclusiveItems";
 import useIsAuthenticated from "../hooks/global/useIsAuthenticated";
 import { useSubscriptionQuery } from "../query/subscriptionQueries";
+import { useGetClubCoins } from "./useCurrency";
+import { useExclusiveItems } from "../query/clubStoreQueries";
 
 interface UseExclusiveStoreDataProps {
   closeExclusiveDialog: () => void;
@@ -37,18 +38,9 @@ export const useExclusiveStoreData = ({
     prestigeOfferEnabled = true,
     superVIPEnabled = true;
   const { isAuthenticated } = useIsAuthenticated();
-  // const { amount: currentUserClubCoin } = useGetClubCoins();
-  const currentUserClubCoin = 0;
+  const { amount: currentUserClubCoin } = useGetClubCoins();
   const { currentPlan } = useSubscriptionQuery();
   const { data: exclusiveItemResponse } = useExclusiveItems();
-  // const exclusiveItemResponse = {};
-  // const getExclusiveItems = async () => {
-  //   const data = await fetch(
-  //     "https://dev-api.wwechampions.com/club/offers/all"
-  //   );
-  //   return await data.json();
-  // };
-  // const exclusiveItemResponse = (async() => return await getExclusiveItems());
 
   const getValidationPurchase = (data: {
     tier: SubscriptionTier | undefined;

@@ -51,6 +51,7 @@ const parseMissionItemToProps = (rawItem: MissionItemResponse) => {
 };
 
 export const useExclusiveItems = () => {
+  console.log({ useExclusiveItems: QUERY_KEY_EXCLUSIVE_ITEMS });
   const { data, ...rest } = useQuery(
     [QUERY_KEY_EXCLUSIVE_ITEMS],
     getExclusiveItems
@@ -64,7 +65,14 @@ export const useExclusiveItems = () => {
 
 export const useInvalidateExclusiveItems = () => {
   const queryClient = useQueryClient();
-  return () => queryClient.invalidateQueries([QUERY_KEY_EXCLUSIVE_ITEMS]);
+
+  return async () => {
+    console.log("useInvalidateExclusiveItems");
+    const before = queryClient.getQueryData([QUERY_KEY_EXCLUSIVE_ITEMS]);
+    await queryClient.invalidateQueries([QUERY_KEY_EXCLUSIVE_ITEMS]);
+    const after = queryClient.getQueryData([QUERY_KEY_EXCLUSIVE_ITEMS]);
+    console.log({ QUERY_KEY_EXCLUSIVE_ITEMS, before, after });
+  };
 };
 
 export const useMissionItems = () => {
@@ -139,7 +147,7 @@ export const useRosterItems = () => {
       refetchOnWindowFocus: false,
     }
   );
-  const total = data?.data.data.length;
+  const total = data?.data.length;
   return { data, total, isInitialLoading, isFetching };
 };
 
@@ -156,7 +164,7 @@ export const useLockedRosters = () => {
       refetchOnWindowFocus: false,
     }
   );
-  const total = data?.data.data.length;
+  const total = data?.data.length;
   return { data, total, isInitialLoading, isFetching };
 };
 

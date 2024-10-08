@@ -22,6 +22,7 @@ import { OfferData } from "@wwe-portal/data/offers";
 import { useExclusiveDialogRevamp } from "./lib/useExclusiveDialogRevamp";
 import { useExclusiveStoreData } from "./lib/useExclusiveStoreData";
 import useIsAuthenticated from "./hooks/global/useIsAuthenticated";
+import usePurchaseByClubCoins from "./payment/usePurchaseByClubCoins";
 // import { globalSel } from "store/global";
 // import { useSelector } from "react-redux";
 
@@ -31,14 +32,14 @@ export const ExclusiveItemSectionRevamp = () => {
   // Redux selector hooks
   const { isAuthenticated } = useIsAuthenticated();
   console.log({ isAuthenticated });
-  // const { purchaseItemsByClubCoins, isLoading } = usePurchaseByClubCoins({
-  //   onError: () => {
-  //     closeExclusiveDialog();
-  //   },
-  //   onPaymentSuccess: () => {
-  //     closeExclusiveDialog();
-  //   },
-  // });
+  const { purchaseItemsByClubCoins, isLoading } = usePurchaseByClubCoins({
+    onError: () => {
+      closeExclusiveDialog();
+    },
+    onPaymentSuccess: () => {
+      closeExclusiveDialog();
+    },
+  });
 
   const handleOfferBuy = (data: {
     tier: SubscriptionTier;
@@ -71,7 +72,7 @@ export const ExclusiveItemSectionRevamp = () => {
     exclusiveItemResponse,
   } = useExclusiveStoreData({
     closeExclusiveDialog,
-    purchaseItemsByClubCoins: () => {},
+    purchaseItemsByClubCoins,
   });
   const findOffer = ({ OffersID }: { OffersID: string }) =>
     exclusiveItemResponse?.data?.find(
